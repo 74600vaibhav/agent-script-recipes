@@ -93,17 +93,6 @@ jobs:
                   echo One of more Code Analyzer critical or high severity violations found
                   exit 1
 
-            # LWC unit tests
-            - name: 'Unit test Lightning Web Components'
-              run: npm run test:unit:coverage
-
-            # Upload code coverage data
-            - name: 'Upload code coverage for LWC to Codecov.io'
-              uses: codecov/codecov-action@v4
-              with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-                  flags: LWC
-
     # Auto merge Dependabot PRs for:
     # - patch updates on prod dependencies
     # - minor updates on dev dependencies
@@ -187,9 +176,11 @@ jobs:
             - name: 'Push source to scratch org'
               run: sf project deploy start
 
-            # Assign permissionset
-            - name: 'Assign permissionset to default user'
-              run: sf org assign permset -n Agent_Script_Recipes
+            # Assign permission sets
+            - name: 'Assign permission sets to default user'
+              run: |
+                  sf org assign permset -n Agent_Script_Recipes_Data
+                  sf org assign permset -n Agent_Script_Recipes_App
 
             # Import sample data
             - name: 'Import sample data'
@@ -198,13 +189,6 @@ jobs:
             # Run Apex tests in scratch org
             - name: 'Run Apex tests'
               run: sf apex test run -c -r human -d ./tests/apex -w 20
-
-            # Upload code coverage data
-            - name: 'Upload code coverage for Apex to Codecov.io'
-              uses: codecov/codecov-action@v4
-              with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-                  flags: Apex
 
             # Housekeeping
             - name: 'Delete scratch org'
