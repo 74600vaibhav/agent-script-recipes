@@ -1,6 +1,6 @@
 engines:
     flow:
-        disable_engine: false
+        disable_engine: true
     eslint:
         auto_discover_eslint_config: true
         disable_javascript_base_config: true
