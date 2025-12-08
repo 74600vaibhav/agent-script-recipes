@@ -1,0 +1,50 @@
+{
+    "records": [
+        {
+            "attributes": { "type": "Account", "referenceId": "acc_commerce" },
+            "Name": "Commerce Account",
+            "Orders": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Order",
+                            "referenceId": "order1"
+                        },
+                        "EffectiveDate": "2024-10-01",
+                        "Status": "Draft",
+                        "Tracking_Number__c": "TRK123456789"
+                    },
+                    {
+                        "attributes": {
+                            "type": "Order",
+                            "referenceId": "order2"
+                        },
+                        "EffectiveDate": "2024-11-15",
+                        "Status": "Draft",
+                        "Tracking_Number__c": "TRK987654321"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "type": "Account",
+                "referenceId": "acc_enterprise"
+            },
+            "Name": "Enterprise Account",
+            "Orders": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Order",
+                            "referenceId": "order3"
+                        },
+                        "EffectiveDate": "2024-12-01",
+                        "Status": "Draft",
+                        "Tracking_Number__c": "TRK555555555"
+                    }
+                ]
+            }
+        }
+    ]
+}

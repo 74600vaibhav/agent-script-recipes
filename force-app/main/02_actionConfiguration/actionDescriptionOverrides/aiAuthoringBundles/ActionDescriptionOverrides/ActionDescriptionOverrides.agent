@@ -1,0 +1,197 @@
+# ActionDescriptionOverrides
+# Demonstrates context-specific action descriptions for better LLM selection
+
+config:
+   agent_name: "ActionDescriptionOverrides"
+   agent_label: "ActionDescriptionOverrides"
+   description: "Demonstrates overriding action descriptions based on context"
+
+variables:
+   user_mode: mutable string = "beginner"
+   search_context: mutable string = ""
+
+system:
+   messages:
+      welcome: "I demonstrate how action descriptions adapt to context!"
+      error: "I had trouble performing the action. Please try again."
+   instructions: "You adapt action descriptions based on user expertise and context. If the user's intent is unclear, start with the beginner interface."
+
+start_agent topic_selector:
+   description: "Welcome users and determine their expertise level"
+   
+   reasoning:
+      actions:
+         beginner_mode: @utils.transition to @topic.beginner_mode
+            description: "Use simplified interface for beginners. Choose this for general questions or when no specific search context (like Accounts or Cases) is mentioned."
+         
+         advanced_mode: @utils.transition to @topic.advanced_mode
+            description: "Use full technical interface for advanced users. Choose this when the user uses technical terms, asks for specific filters, or complex operations."
+         
+         contextual_mode: @utils.transition to @topic.contextual_search
+            description: "Use context-aware search. Choose this ONLY when the user explicitly searches for specific business objects like Accounts, Contacts, or Cases."
+
+# TOPIC 1: Beginner mode - simplified descriptions
+topic beginner_mode:
+   description: "Simplified interface for beginners"
+
+   actions:
+      perform_search:
+         description: "Search the knowledge base"
+         inputs:
+            query: string
+               description: "Search query text to find relevant knowledge base articles"
+            filters: object
+               description: "Filter criteria object to refine search results (e.g., type, date range, tags)"
+         outputs:
+            results: list[object]
+               description: "List of search result objects containing matching knowledge base articles"
+         target: "flow://PerformSearch"
+      create_record:
+         description: "Create a new record"
+         inputs:
+            record_type: string
+               description: "Type of record to create (e.g., Account, Contact, Case, Custom__c)"
+            data: object
+               description: "Record data object containing field-value pairs for the new record"
+         outputs:
+            record_id: string
+               description: "Unique identifier of the newly created record"
+         target: "flow://CreateRecord"
+
+   reasoning:
+      instructions:->
+         | Beginner Mode - Simplified Interface
+          
+           I'll help you with basic tasks using simple language.
+
+      actions:
+         simple_search: @actions.perform_search
+            with query=...
+            with filters=...
+         create_new_item: @actions.create_record
+            with record_type=...
+            with data=...
+
+         switch_to_advanced: @utils.transition to @topic.advanced_mode
+
+# TOPIC 2: Advanced mode - detailed technical descriptions
+topic advanced_mode:
+   description: "Full-featured interface for advanced users"
+
+   actions:
+      perform_search:
+         description: "Execute knowledge base query with advanced filters (supports: type, date range, tags, custom fields). Returns paginated results with relevance scoring."
+         inputs:
+            query: string
+               description: "Search query text with support for advanced syntax and operators"
+            filters: object
+               description: "Advanced filter criteria object with type, date range, tags, and custom field filters"
+         outputs:
+            results: list[object]
+               description: "Paginated list of search result objects with relevance scores"
+         target: "flow://PerformSearch"
+      create_record:
+         description:  "Create new database record. Specify record_type (Account, Contact, Case, Custom__c) and provide data object with field-value pairs. Returns record ID on success."
+         inputs:
+            record_type: string
+               description: "Database record type (Account, Contact, Case, Custom__c, etc.)"
+            data: object
+               description: "Record data object with field-value pairs matching the specified record type schema"
+         outputs:
+            record_id: string
+               description: "Unique 18-character Salesforce record ID"
+         target: "flow://CreateRecord"
+      generate_report:
+         description: "Generate analytics report. Available types: sales_summary, user_activity, performance_metrics. Accepts parameters object for date ranges, filters, and aggregation options."
+         inputs:
+            report_type: string
+               description: "Report type (sales_summary, user_activity, performance_metrics, etc.)"
+            parameters: object
+               description: "Report parameters object with date ranges, filters, and aggregation options"
+         outputs:
+            report_url: string
+               description: "URL to access or download the generated report"
+         target: "flow://GenerateReport"
+
+   reasoning:
+      instructions:->
+         | Advanced Mode - Full Technical Interface
+         |
+         | All features available with detailed technical descriptions.
+
+      actions:
+         advanced_search: @actions.perform_search
+            with query=...
+            with filters=...
+         create_record_advanced: @actions.create_record
+            with record_type=...
+            with data=...
+         generate_analytics: @actions.generate_report
+            with report_type=...
+            with parameters=...
+
+         switch_to_beginner: @utils.transition to @topic.beginner_mode
+
+# TOPIC 3: Context-aware descriptions
+topic contextual_search:
+   description: "Search with context-specific descriptions"
+
+   actions:
+      perform_search:
+         description: "Search the knowledge base"
+         inputs:
+            query: string
+               description: "Search query text adapted to the current search context"
+            filters: object
+               description: "Context-specific filter criteria object"
+         outputs:
+            results: list[object]
+               description: "List of context-relevant search result objects"
+         target: "flow://PerformSearch"
+      create_record:
+         description: "Create a new record"
+         inputs:
+            record_type: string
+               description: "Type of record to create based on current context"
+            data: object
+               description: "Record data object with fields relevant to the current context"
+         outputs:
+            record_id: string
+               description: "Unique identifier of the newly created record"
+         target: "flow://CreateRecord"
+      generate_report:
+         description: "Generate an analytics report"
+         inputs:
+            report_type: string
+               description: "Type of analytics report to generate"
+            parameters: object
+               description: "Report parameters object for customization"
+         outputs:
+            report_url: string
+               description: "URL to access the generated report"
+         target: "flow://GenerateReport"
+
+   reasoning:
+      instructions:->
+         | Context-Aware Search Interface
+          
+           Search descriptions adapt based on what you're looking for.
+
+      actions:
+         # When searching for accounts
+         search_accounts: @actions.perform_search
+            available when @variables.search_context == "accounts"
+            with query=...
+            with filters=...
+
+         # When searching for contacts
+         search_contacts: @actions.perform_search
+            available when @variables.search_context == "contacts"
+            with query=...
+            with filters=...
+
+         # When searching for cases
+         search_cases: @actions.perform_search
+            available when @variables.search_context == "cases"
+            with query=...
+            with filters=...

@@ -1,0 +1,54 @@
+{
+    "records": [
+        {
+            "attributes": { "type": "Account", "referenceId": "acc1" },
+            "Name": "Global Media",
+            "Industry": "Media",
+            "Contacts": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Contact",
+                            "referenceId": "con1"
+                        },
+                        "FirstName": "Jane",
+                        "LastName": "Doe",
+                        "Email": "jane.doe@example.com",
+                        "Phone": "555-0101",
+                        "Language__c": "English",
+                        "Timezone__c": "America/Los_Angeles",
+                        "Loyalty_Tier__c": "Gold",
+                        "Lifetime_Value__c": 15000,
+                        "Loyalty_Status__c": "Active",
+                        "User_ID__c": "U001"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": { "type": "Account", "referenceId": "acc2" },
+            "Name": "Acme Corp",
+            "Industry": "Technology",
+            "Contacts": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Contact",
+                            "referenceId": "con2"
+                        },
+                        "FirstName": "John",
+                        "LastName": "Smith",
+                        "Email": "john.smith@example.com",
+                        "Phone": "555-0102",
+                        "Language__c": "Spanish",
+                        "Timezone__c": "Europe/Madrid",
+                        "Loyalty_Tier__c": "Silver",
+                        "Lifetime_Value__c": 5000,
+                        "Loyalty_Status__c": "Active",
+                        "User_ID__c": "U002"
+                    }
+                ]
+            }
+        }
+    ]
+}
