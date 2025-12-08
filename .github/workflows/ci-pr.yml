@@ -187,9 +187,11 @@ jobs:
             - name: 'Push source to scratch org'
               run: sf project deploy start
 
-            # Assign permissionset
-            - name: 'Assign permissionset to default user'
-              run: sf org assign permset -n Agent_Script_Recipes
+            # Assign permission sets
+            - name: 'Assign permission sets to default user'
+              run: |
+                  sf org assign permset -n Agent_Script_Recipes_Data
+                  sf org assign permset -n Agent_Script_Recipes_App
 
             # Import sample data
             - name: 'Import sample data'
