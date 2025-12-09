@@ -29,7 +29,7 @@ If you need to [update the Salesforce CLI](https://developer.salesforce.com/docs
 ## Installing the app using a Developer Edition Org
 
 Follow this set of instructions if you want to deploy the app to a more permanent environment than a Scratch org.
-This includes non source-tracked orgs such as a free [Developer Edition Org](https://developer.salesforce.com/signup) or a [Trailhead Playground](https://trailhead.salesforce.com/).
+This includes non source-tracked orgs such as a free [Developer Edition Org](https://developer.salesforce.com/signup).
 
 > [!IMPORTANT]
 > Make sure to start from a brand-new environment to avoid conflicts with previous work you may have done.
@@ -45,7 +45,7 @@ This includes non source-tracked orgs such as a free [Developer Edition Org](htt
     cd agent-script-recipes
     ```
 
-4. Authorize your Trailhead Playground or Developer Edition org and provide it with an alias (**agent-script-recipes** in the command below):
+4. Authorize your Developer Edition org and provide it with an alias (**agent-script-recipes** in the command below):
 
     ```bash
     sf org login web -s -a agent-script-recipes
@@ -82,7 +82,7 @@ This includes non source-tracked orgs such as a free [Developer Edition Org](htt
 ## Installing the app using a Scratch Org
 
 1. Follow these steps if you haven't configured a Dev Hub org:
-    1. [Select and enable a Dev Hub org](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_setup_enable_devhub.htm). You can use a free [Developer Edition Org](https://developer.salesforce.com/signup) or a [Trailhead Playground](https://trailhead.salesforce.com/).
+    1. [Select and enable a Dev Hub org](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_setup_enable_devhub.htm). You can use a free [Developer Edition Org](https://developer.salesforce.com/signup).
 
     1. Authorize your Dev Hub org and provide it with an alias (**myhuborg** in the command below):
 
