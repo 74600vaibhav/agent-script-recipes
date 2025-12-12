@@ -6,4 +6,5 @@
     "redhat.vscode-xml",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"
+  ]
 }
