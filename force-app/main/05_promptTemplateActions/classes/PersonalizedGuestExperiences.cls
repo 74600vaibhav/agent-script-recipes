@@ -6,11 +6,11 @@ public with sharing class PersonalizedGuestExperiences {
         description='Get today\'s sessions that match the user\'s interests.'
     )
     public static List<Response> getSessions(List<Request> requests) {
-        Id guestId = requests[0].guest.Id;
+        Id contactId = requests[0].contactId;
 
         // Get experiences for contact
         List<ASR_Experience__c> experiences = ExperienceController.getExperiences(
-            guestId
+            contactId
         );
 
         // Create expected response
@@ -25,7 +25,7 @@ public with sharing class PersonalizedGuestExperiences {
     // that may be different on each prompt template
     public class Request {
         @InvocableVariable(required=true description='The guest (Contact) ID')
-        public Contact guest;
+        public String contactId;
     }
 
     public class Response {

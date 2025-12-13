@@ -38,7 +38,7 @@ private class PersonalizedGuestExperiencesTest {
 
         // Create test request
         PersonalizedGuestExperiences.Request request = new PersonalizedGuestExperiences.Request();
-        request.guest = testContact;
+        request.contactId = testContact.Id;
 
         // Start test execution context
         Test.startTest();

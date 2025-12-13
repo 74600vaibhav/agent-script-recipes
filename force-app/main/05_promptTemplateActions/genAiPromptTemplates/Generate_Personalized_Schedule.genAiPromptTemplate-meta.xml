@@ -21,9 +21,9 @@ List of activities happening today that match the guest&apos;s interests: {!$Ape
 </content>
         <inputs>
             <apiName>contact</apiName>
-            <definition>SOBJECT://Contact</definition>
-            <masterLabel>contact</masterLabel>
-            <referenceName>Input:contact</referenceName>
+            <definition>String</definition>
+            <masterLabel>contactId</masterLabel>
+            <referenceName>Input:contactId</referenceName>
             <required>true</required>
         </inputs>
         <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
@@ -31,10 +31,10 @@ List of activities happening today that match the guest&apos;s interests: {!$Ape
         <templateDataProviders>
             <definition>apex://PersonalizedGuestExperiences</definition>
             <parameters>
-                <definition>SOBJECT://Contact</definition>
+                <definition>String</definition>
                 <isRequired>true</isRequired>
-                <parameterName>guest</parameterName>
-                <valueExpression>{!$Input:contact}</valueExpression>
+                <parameterName>contactId</parameterName>
+                <valueExpression>{!$Input:contactId}</valueExpression>
             </parameters>
             <referenceName>Apex:PersonalizedGuestExperiences</referenceName>
         </templateDataProviders>
