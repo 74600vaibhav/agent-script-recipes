@@ -46,5 +46,14 @@ sf data import tree --files data/general-onboarding.json
 echo "Importing general survey data..."
 sf data import tree --files data/general-survey.json
 
+echo "Importing travel cruise contact data..."
+sf data import tree --files data/travel-cruise-contact.json
+
+echo "Importing travel cruise customer experience data..."
+sf data import tree --files data/travel-cruise-experience.json
+
+echo "Importing travel cruise customer interest data..."
+sf data import tree --files data/travel-cruise-customer-interest.json
+
 echo "Data import complete."
 
